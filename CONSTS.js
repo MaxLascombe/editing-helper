@@ -1,0 +1,1 @@
+exports.LONG_SENTENCE = 10
