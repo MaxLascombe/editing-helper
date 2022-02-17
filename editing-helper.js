@@ -18,9 +18,15 @@ fs.readFile(FILE, 'utf8', (err, data) => {
     data = data.replace(/\s\s+/g, ' ')
 
     const sentences = data.split('.')
-    sentences.forEach((sentence) => {
-        sentence = sentence.trim()
-        if (sentence.split(' ').length > MAX_SENTENCE_LENGTH)
-            console.log(`Sentence too long: ${sentence}.`)
-    })
+    const sentenceLengths = sentences.map(
+        (sentence) => sentence.trim().split(' ').length
+    )
+
+    const longAssSentences = sentenceLengths
+        .map((l, i) => ({ s: sentences[i], l }))
+        .filter((sl) => sl.l > MAX_SENTENCE_LENGTH)
+    const sortedSentences = longAssSentences.sort((a, b) => b.l - a.l)
+    sortedSentences.forEach(({ s, l }) =>
+        console.log(`Sentence too long (${l} > ${MAX_SENTENCE_LENGTH}): ${s}.`)
+    )
 })
