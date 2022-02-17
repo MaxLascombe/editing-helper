@@ -1,4 +1,4 @@
-const { LONG_SENTENCE } = require('./CONSTS.js')
+const { MAX_SENTENCE_LENGTH } = require('./CONSTS.js')
 
 const ARGS = process.argv
 
@@ -20,7 +20,7 @@ fs.readFile(FILE, 'utf8', (err, data) => {
     const sentences = data.split('.')
     sentences.forEach((sentence) => {
         sentence = sentence.trim()
-        if (sentence.split(' ').length > LONG_SENTENCE)
+        if (sentence.split(' ').length > MAX_SENTENCE_LENGTH)
             console.log(`Sentence too long: ${sentence}.`)
     })
 })
