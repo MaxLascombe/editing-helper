@@ -1,1 +1,1 @@
-exports.MAX_SENTENCE_LENGTH = 10
+exports.MAX_SENTENCE_LENGTH = 15

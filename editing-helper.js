@@ -17,7 +17,9 @@ fs.readFile(FILE, 'utf8', (err, data) => {
     // remove double spaces
     data = data.replace(/\s\s+/g, ' ')
 
-    const sentences = data.split('.')
+    const sentences = data
+        .match(/\(?[^\.\?\!]+[\.!\?]\)?/g)
+        .map((s) => s.trim())
     const sentenceLengths = sentences.map(
         (sentence) => sentence.trim().split(' ').length
     )
@@ -27,6 +29,6 @@ fs.readFile(FILE, 'utf8', (err, data) => {
         .filter((sl) => sl.l > MAX_SENTENCE_LENGTH)
     const sortedSentences = longAssSentences.sort((a, b) => b.l - a.l)
     sortedSentences.forEach(({ s, l }) =>
-        console.log(`Sentence too long (${l} > ${MAX_SENTENCE_LENGTH}): ${s}.`)
+        console.log(`Sentence too long (${l} > ${MAX_SENTENCE_LENGTH}): ${s}`)
     )
 })
